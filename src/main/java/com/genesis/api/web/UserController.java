@@ -23,6 +23,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@GetMapping
+	public String testUserController() {
+		return "user controller ok";
+	}
 	
 	@GetMapping
 	public List<User> getAllUser(){
