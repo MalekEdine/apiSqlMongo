@@ -2,10 +2,13 @@ package com.genesis.api.models;
 
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
 
 @Document(collection = "Personnes")
 public class Personne {
+	@Id
 	private String id;
 	private String nom;
 	private String prenom;

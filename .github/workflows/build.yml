@@ -28,12 +28,7 @@ jobs:
    - name: build app with Maven
      run: mvn clean package -DskipTests
      
-   - name: Set up environment variables
-     run: echo "MYSQL_ROOT_PASSWORD=${{secrets.MYSQL_ROOT_PASSWORD}}" >> $GITHUB_ENV
-     env: 
-      MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
-      SPRING_DATASOURCE_PASSWORD: ${{secrets.SPRING_DATASOURCE_PASSWORD}}
-      
+  
    - name: Log to Docker Hub
      uses: docker/login-action@v2
      with:
@@ -49,8 +44,9 @@ jobs:
    - name: Start Docker Compose
      run: docker compose -f docker-compose.yml up -d
      env: 
-      MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
-      SPRING_DATASOURCE_PASSWORD: ${{secrets.SPRING_DATASOURCE_PASSWORD}}
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL }}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
       
    - name: Shut down Docker Compose
      run: docker compose -f docker-compose.yml down   	    
